@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidV4 } = require('uuid');
 
 
-
-
 router.post('/login', async(req, res) => {
   console.log('reached login endpoint')
   const { screenName, password } = req.body;
