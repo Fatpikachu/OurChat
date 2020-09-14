@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthService from '../AuthService';
 import Sidebar from './Sidebar';
+import { ContactsProvider } from '../contexts/ContactsProvider'
 
 const Home = props => {
   const handleLogout = () => {
@@ -8,10 +9,14 @@ const Home = props => {
     props.history.replace('/');
   }
   return (
-    <div>     
-        <button onClick={handleLogout}>Logout! </button>
-        <Sidebar />
-    </div>
+    <>  
+      <ContactsProvider>
+        <button className='float-right' onClick={handleLogout}>Logout! </button>
+        <div className='d-flex' style={{ height: '100vh '}}>
+          <Sidebar />
+        </div>
+      </ContactsProvider>
+    </>  
   )
 };
 

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Tab, Nav } from 'react-bootstrap'
+import { Tab, Nav, Button, Modal} from 'react-bootstrap'
 import Conversations from './Conversations'
 import Contacts from './Contacts'
+import NewConversationModal from './NewConversationModal'
+import NewContactModal from './NewContactModal'
 
 const CONVERSATIONS_KEY = 'Conversations'
 const CONTACTS_KEY = 'Contacts'
@@ -9,8 +11,15 @@ const CONTACTS_KEY = 'Contacts'
 export default function Sidebar() {
   let chatID = localStorage.getItem('chatID')
   const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
+  const conversationsOpen = activeKey === CONVERSATIONS_KEY
+  const [modalOpen, setModalOpen] = useState(false)
+
+  function closeModal(){
+    setModalOpen(false)
+  }
+
   return (
-    <div styles={{ width: '250px'}} className='d-flex flex-column'>
+    <div style={{ width: '300px'}} className='d-flex flex-column'>
      <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
        <Nav variant='tabs' className="justify-content-center">
           <Nav.Item>
@@ -20,8 +29,7 @@ export default function Sidebar() {
             <Nav.Link eventKey={CONTACTS_KEY}> Contacts </Nav.Link>
           </Nav.Item>
         </Nav>
-
-        <Tab.Content>
+        <Tab.Content className="border-right overflow-auto flex-grow-1">
           <Tab.Pane eventKey={CONVERSATIONS_KEY}>
             <Conversations />
           </Tab.Pane>
@@ -29,7 +37,21 @@ export default function Sidebar() {
             <Contacts />
           </Tab.Pane>
         </Tab.Content>
+        <div className="p-2 border-top border-right small">
+          Your Id: <span className="text-muted">{localStorage.getItem('id')}</span>
+        </div>
+        <Button onClick={()=> setModalOpen(true)} className="rounded-10">
+            New {conversationsOpen ? 'Conversation' : 'Contact' }
+        </Button>
      </Tab.Container>
+
+     <Modal show={modalOpen} onHide={closeModal}>
+       {
+         conversationsOpen ?
+          <NewConversationModal closeModal={closeModal} /> :
+          <NewContactModal closeModal={closeModal}/> 
+        }
+    </Modal>
     </div>
     )
 }

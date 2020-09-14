@@ -24,9 +24,12 @@ const Login = props => {
     AuthService.login(state.screenName, state.password)
       .then((token) => {
         let decoded = decode(token);
+        let contacts = JSON.stringify(decoded.contacts)
+        console.log('contacts >>>: ', contacts)
         localStorage.setItem('screenName', decoded.screenName);
-        localStorage.setItem('contacts', decoded.contacts);
+        localStorage.setItem('contacts', contacts);
         localStorage.setItem('chatID', decoded.chatID);
+        localStorage.setItem('id', decoded.id);
         setState(prevState => ({
           ...prevState,
           error: false

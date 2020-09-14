@@ -11,6 +11,7 @@ import Home from './components/Home';
 import AuthService from './AuthService.js'
 import Unauthorized from './components/Unauthorized';
 import axios from 'axios';
+import { ContactsProvider } from './contexts/ContactsProvider';
 
 
 function App() {
@@ -18,7 +19,6 @@ function App() {
   //   return false
   // });
   
-
   const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
       AuthService.loggedIn() === true

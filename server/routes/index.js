@@ -16,7 +16,7 @@ router.post('/login', async(req, res) => {
   }
   try {
     if(await bcrypt.compare(password, someone.password)){
-      const token = jwt.sign({ id: someone.id, 
+      const token = jwt.sign({ id: someone._id, 
         chatID: someone.chatID,
         screenName: someone.screenName,
         contacts: someone.contacts}, 'secret', { expiresIn: 129600 });
@@ -39,7 +39,7 @@ router.post('/register', async(req, res) => {
     email: req.body.email,
     password: hashedPassword
   })
-  user.contacts.push('OurChat Support');
+  user.contacts.push({id: '5f5de45102b6a103f6457006', username:'OurChat Support'});
   try {
     const savedUser = await user.save()
     console.log('the saved user:  ', savedUser)
@@ -48,6 +48,22 @@ router.post('/register', async(req, res) => {
     console.log(err)
     res.status(400).send({message: err})
   }
+})
+
+router.post('/contacts', async(req, res) => {
+  console.log('reached add contact')
+  const { id, newContact } = req.body;
+  const friend = await User.findById(id)
+    User.findByIdAndUpdate(id,
+      {$push: {contacts: {id: newContact, username: friend.screenName}}},
+      function(err, doc) {
+          if(err){
+            console.log(err);
+          }else{
+            res.send('updated')
+          }
+      }
+  );
 })
 
 
