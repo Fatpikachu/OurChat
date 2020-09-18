@@ -70,7 +70,7 @@ const Register = () => {
       :
       <div>
         Successfully registered
-        <p><Link to='/'>Go Login</Link></p>
+        <p><Link to='/home'>Go Login</Link></p>
       </div>
       }
     </React.Fragment>

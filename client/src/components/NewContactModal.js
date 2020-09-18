@@ -15,7 +15,6 @@ export default function NewContactModal({ closeModal }) {
 
   return (
     <>
-
       <Modal.Header closeButton> New Contact </Modal.Header>  
       <Modal.Body>
         <Form onSubmit={handleSubmit}>

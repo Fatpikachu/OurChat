@@ -39,7 +39,7 @@ router.post('/register', async(req, res) => {
     email: req.body.email,
     password: hashedPassword
   })
-  user.contacts.push({id: '5f5de45102b6a103f6457006', username:'OurChat Support'});
+  user.contacts.push({id: '5f5de45102b6a103f6457006', name:'OurChat Support'});
   try {
     const savedUser = await user.save()
     console.log('the saved user:  ', savedUser)
@@ -53,17 +53,30 @@ router.post('/register', async(req, res) => {
 router.post('/contacts', async(req, res) => {
   console.log('reached add contact')
   const { id, newContact } = req.body;
-  const friend = await User.findById(id)
+  const friend = await User.findById(newContact)
+  console.log('the friend: ', friend)
     User.findByIdAndUpdate(id,
-      {$push: {contacts: {id: newContact, username: friend.screenName}}},
+      {$push: {contacts: {id: newContact, name: friend.screenName}}},
       function(err, doc) {
           if(err){
             console.log(err);
           }else{
-            res.send('updated')
+            res.send({doc})
           }
       }
   );
+})
+
+router.get('/contacts/:userID', async(req, res) => {
+  console.log('reached get contacts')
+  const id = req.params.userID;
+  try{
+    const someone = await User.findById(id)
+    res.json(someone)
+  } catch(err){
+    res.status(400).send({message: err})
+  }
+  
 })
 
 

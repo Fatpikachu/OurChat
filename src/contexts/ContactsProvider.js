@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 const ContactsContext = React.createContext()
 
@@ -8,16 +9,18 @@ export function useContacts() {
 }
 
 export function ContactsProvider({ children }) {
-  // const [contacts, setContacts] = localStorage.getItem('contacts')
-  const contacts = localStorage.getItem('contacts')
-  console.log('the contacts>>>: ', contacts)
+  const [contacts, setContacts] = useLocalStorage('contacts')
+  const userID = localStorage.getItem('id')
   function addContact(newContact){
     const userID = localStorage.getItem('id');
     axios.post('http://localhost:3000/contacts', {
         id: userID,
         newContact: newContact
-    }).then(() => {
-      console.log('sucessfully added new contact')
+    }).then((updatedContacts) => {
+      axios.get(`http://localhost:3000/contacts/${userID}`)
+      .then( (user) => {
+        setContacts(user.data.contacts)
+        })
     }).catch((err) => {
       console.log(err)
     })

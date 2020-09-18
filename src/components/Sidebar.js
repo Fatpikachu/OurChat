@@ -41,7 +41,7 @@ export default function Sidebar() {
           Your Id: <span className="text-muted">{localStorage.getItem('id')}</span>
         </div>
         <Button onClick={()=> setModalOpen(true)} className="rounded-10">
-            New {conversationsOpen ? 'Conversation' : 'Contact' }
+            {conversationsOpen ? 'Start Conversation' : 'Add Contact' }
         </Button>
      </Tab.Container>
 

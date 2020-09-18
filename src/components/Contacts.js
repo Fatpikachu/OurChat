@@ -4,14 +4,17 @@ import { useContacts } from '../contexts/ContactsProvider'
 
 export default function Contacts() {
   const { contacts } = useContacts()
-  
+  console.log('contacts~~~~   ', contacts)
   return (
     <ListGroup variant="flush">
-      {JSON.parse(contacts).map( contact => (
+      {contacts ? contacts.map( contact => (
           <ListGroup.Item key={contact.id} >
-            {contact.username}
+            {contact.name}
           </ListGroup.Item>
-      ))}
+      ))
+      :
+      <div>Loading...</div>
+    }
     </ListGroup>
   )
 }
