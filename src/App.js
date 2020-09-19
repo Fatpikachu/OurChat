@@ -13,7 +13,8 @@ import Unauthorized from './components/Unauthorized';
 import axios from 'axios';
 import { ContactsProvider } from './contexts/ContactsProvider'
 import { ConversationsProvider } from './contexts/ConversationsProvider'
-// import useLocalStorage from './hooks/useLocalStorage'
+import useLocalStorage from './hooks/useLocalStorage'
+import { SocketProvider } from './contexts/SocketProvider';
 
 
 function App() {
@@ -31,18 +32,20 @@ function App() {
   );
   return (
     <>
-     <ContactsProvider>
-        <ConversationsProvider id={id}>
-          <div className="App">
-          <HashRouter>
-            <Route exact path='/' component={Login} />
-            <Route exact path='/register' component={Register} />
-            <ProtectedRoute exact path='/home' component={Home} />
-            <Route exact path='/unauthorized' component={Unauthorized} />
-          </HashRouter>
-          </div>
-        </ConversationsProvider>
-      </ContactsProvider>
+      <SocketProvider id={id}>
+        <ContactsProvider>
+          <ConversationsProvider id={id}>
+            <div className="App">
+            <HashRouter>
+              <Route exact path='/' component={Login} />
+              <Route exact path='/register' component={Register} />
+              <ProtectedRoute exact path='/home' component={Home} />
+              <Route exact path='/unauthorized' component={Unauthorized} />
+            </HashRouter>
+            </div>
+          </ConversationsProvider>
+        </ContactsProvider>
+      </SocketProvider>
     </>
   );
 }

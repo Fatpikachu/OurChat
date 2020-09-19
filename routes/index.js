@@ -7,9 +7,7 @@ const { v4: uuidV4 } = require('uuid');
 
 
 router.post('/login', async(req, res) => {
-  console.log('reached login endpoint')
   const { screenName, password } = req.body;
-  console.log('the data: ', screenName, password)
   const someone = await User.findOne({screenName: screenName})
   if(someone == null){
     return res.status(400).send('Wrong login credentials')
@@ -30,7 +28,6 @@ router.post('/login', async(req, res) => {
 })
 
 router.post('/register', async(req, res) => {
-  console.log('reached register endpoint')
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
   const user = new User({
@@ -42,7 +39,6 @@ router.post('/register', async(req, res) => {
   user.contacts.push({id: '5f5de45102b6a103f6457006', name:'OurChat Support'});
   try {
     const savedUser = await user.save()
-    console.log('the saved user:  ', savedUser)
     res.json(savedUser)
   } catch (err) {
     console.log(err)
@@ -51,10 +47,8 @@ router.post('/register', async(req, res) => {
 })
 
 router.post('/contacts', async(req, res) => {
-  console.log('reached add contact')
   const { id, newContact } = req.body;
   const friend = await User.findById(newContact)
-  console.log('the friend: ', friend)
     User.findByIdAndUpdate(id,
       {$push: {contacts: {id: newContact, name: friend.screenName}}},
       function(err, doc) {
@@ -68,7 +62,6 @@ router.post('/contacts', async(req, res) => {
 })
 
 router.get('/contacts/:userID', async(req, res) => {
-  console.log('reached get contacts')
   const id = req.params.userID;
   try{
     const someone = await User.findById(id)

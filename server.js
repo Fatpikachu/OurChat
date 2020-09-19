@@ -7,8 +7,28 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
-
 const indexRouter = require('./routes/index')
+const http = require('http')
+const server = http.createServer(app)
+const socketio = require('socket.io')
+const io = socketio(server)
+
+io.on('connection', socket => {
+  console.log('new websocket connection!!...')
+  const id = socket.handshake.query.id
+  socket.join(id)
+
+  socket.on('send-message', ({ recipients, text}) => {
+    recipients.forEach(recipient => {
+      const newRecipients = recipients.filter(r =>
+        r !== recipient)
+        newRecipients.push(id)
+        socket.broadcast.to(recipient).emit('receive-message', {
+          recipients: newRecipients, sender: id, text
+        })
+    })
+  })
+})
 
 
 app.use(cors());
@@ -27,4 +47,4 @@ db.once('open', () => console.log('Connected to Mongoose!'))
 
 app.use('/', indexRouter)
 
-app.listen(process.env.PORT || 3000)
+server.listen(process.env.PORT || 3000)
