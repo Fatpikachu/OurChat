@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AuthService from '../AuthService';
 import decode from 'jwt-decode';
+import useLocalStorage from '../hooks/useLocalStorage'
 
 
 const Login = props => {
@@ -18,18 +19,22 @@ const Login = props => {
           [name]: value
       }))     
   }
+  const[screenName, setScreenName] = useLocalStorage('screenName')
+  const[contacts, setContacts] = useLocalStorage('contacts')
+  const[chatID, setChatID] = useLocalStorage('chatID')
+  const[id, setId] = useLocalStorage('id')
 
   const handleLogin = (e) => {
     e.preventDefault();
     AuthService.login(state.screenName, state.password)
       .then((token) => {
         let decoded = decode(token);
-        let contacts = JSON.stringify(decoded.contacts)
+        // let contacts = JSON.stringify(decoded.contacts)
         console.log('contacts >>>: ', contacts)
-        localStorage.setItem('screenName', decoded.screenName);
-        localStorage.setItem('contacts', contacts);
-        localStorage.setItem('chatID', decoded.chatID);
-        localStorage.setItem('id', decoded.id);
+        setScreenName(decoded.screenName);
+        setContacts(decoded.contacts);
+        setChatID(decoded.chatID);
+        setId(decoded.id);
         setState(prevState => ({
           ...prevState,
           error: false

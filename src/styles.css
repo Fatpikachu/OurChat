@@ -1,0 +1,38 @@
+.btn:focus {
+    outline: none !important;
+    outline-offset: none !important;
+    box-shadow: none;
+    border: none !important;
+}
+
+.input-group {
+    outline: none !important;
+    border: 1px solid black
+}
+
+textarea:focus{
+    outline:none !important;
+}
+
+textarea{
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+}
+
+.send-text:focus{
+    outline: none !important
+}
+
+/* input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+} */

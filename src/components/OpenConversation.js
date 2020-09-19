@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useConversations } from '../contexts/ConversationsProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 export default function OpenConversation() {
   const [text, setText] = useState('')
@@ -12,7 +14,6 @@ export default function OpenConversation() {
   })
   function handleSubmit(e) {
     e.preventDefault()
-    console.log('what we send as recipients!!!  ', selectedConversation.recipients.map(r => r.id))
     sendMessage(selectedConversation.recipients.map(r => r.id), text)
     setText('')
   }
@@ -33,9 +34,9 @@ export default function OpenConversation() {
               <div
                 key={index}
                 ref={lastMessage ? setRef : null}
-                className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end' :''}`}>
+                className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end align-items-end' : 'align-items-start'}`}>
                 <div className={
-                  `rounded px-2 py-1 
+                  `rounded px-3 py-2 
                   ${message.fromMe ? 'bg-primary text-white' : 'border'}`}>
                     {message.text}
                 </div>
@@ -52,13 +53,19 @@ export default function OpenConversation() {
             <InputGroup>
               <Form.Control 
                 as="textarea"
+                className="rounded-0 send-txt"
                 required 
                 value={text}
                 onChange={ e => setText(e.target.value)}
-                style={{ height: '75px', resize: 'none' }}
+                style={{ height: '60px', resize: 'none' }}
+                onKeyPress={event => {
+                  if (event.key === "Enter") {
+                    handleSubmit(event);
+                  }
+                }}
               />
               <InputGroup.Append>
-                <Button type="submit">Send </Button>
+                <Button type="submit" className="rounded-0"><FontAwesomeIcon icon={faPaperPlane} />&nbsp;&nbsp;Send </Button>
               </InputGroup.Append>
             </InputGroup>
         </Form.Group>

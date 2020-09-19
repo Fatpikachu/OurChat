@@ -10,14 +10,13 @@ export function useContacts() {
 
 export function ContactsProvider({ children }) {
   const [contacts, setContacts] = useLocalStorage('contacts')
-  const userID = localStorage.getItem('id')
+  const [id, setID] = useLocalStorage('id')
   function addContact(newContact){
-    const userID = localStorage.getItem('id');
     axios.post('http://localhost:3000/contacts', {
-        id: userID,
+        id: id,
         newContact: newContact
     }).then((updatedContacts) => {
-      axios.get(`http://localhost:3000/contacts/${userID}`)
+      axios.get(`http://localhost:3000/contacts/${id}`)
       .then( (user) => {
         setContacts(user.data.contacts)
         })

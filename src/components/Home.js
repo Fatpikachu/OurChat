@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button } from 'react-bootstrap'
 import AuthService from '../AuthService'
 import Sidebar from './Sidebar'
 import OpenConversation from './OpenConversation'
@@ -20,6 +21,9 @@ export default function Home(props) {
       {/* <ContactsProvider>
         <ConversationsProvider> */}
           {/* <button className='float-right' onClick={handleLogout}> Logout! </button> */}
+          <Button className='position-absolute right-0' variant="secondary" size="sm" onClick={handleLogout}>
+            Logout
+          </Button>{' '}
           <div className='d-flex' style={{ height: '100vh '}}>
             <Sidebar />
             { selectedConversation && <OpenConversation /> }

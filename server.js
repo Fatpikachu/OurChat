@@ -19,13 +19,17 @@ io.on('connection', socket => {
   socket.join(id)
 
   socket.on('send-message', ({ recipients, text}) => {
+    console.log('socket: recipient:  ', recipients, 'the text:  ', text)
     recipients.forEach(recipient => {
       const newRecipients = recipients.filter(r =>
-        r !== recipient)
-        newRecipients.push(id)
-        socket.broadcast.to(recipient).emit('receive-message', {
-          recipients: newRecipients, sender: id, text
-        })
+      r !== recipient)
+      newRecipients.push(id)
+      console.log('emiting:  ', {
+        recipients: newRecipients, sender: id, text
+      })
+      socket.broadcast.to(recipient).emit('receive-message', {
+        recipients: newRecipients, sender: id, text
+      })
     })
   })
 })

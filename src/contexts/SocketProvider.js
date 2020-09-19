@@ -11,16 +11,14 @@ export function SocketProvider({ id, children }){
   const [socket, setSocket] = useState()
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3000', { query: id })
+    const newSocket = io('http://localhost:3000', { query: { id } })
     setSocket(newSocket)
     return () => newSocket.close()
   }, [id])
 
   return (
-    <div>
-      <SocketContext.Provider value={socket}>
-        {children}
-      </SocketContext.Provider>
-    </div>
+    <SocketContext.Provider value={socket}>
+      {children}
+    </SocketContext.Provider>
   )
 }

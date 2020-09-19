@@ -21,8 +21,8 @@ function App() {
   // const [user, setUser] = useState(() => {
   //   return false
   // });
-  // const[id, setId] = useLocalStorage('id')
-  const id = localStorage.getItem('id')
+  const[id, setId] = useLocalStorage('id')
+  // const id = localStorage.getItem('id')
   const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
       AuthService.loggedIn() === true
