@@ -1,7 +1,8 @@
 import decode from 'jwt-decode';
 
 const AuthService = {
-  domain: 'http://localhost:3000',
+  port = process.env.PORT || 3000,
+  domain: `http://localhost:${AuthService.port}`,
   login: (screenName, password) => {
     // Get a token from api server using the fetch api
     return AuthService.fetch('/login', {
