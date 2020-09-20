@@ -12,7 +12,7 @@ export function SocketProvider({ id, children }){
 
   useEffect(() => {
     if(id){
-      const newSocket = io('https://ourchat-fatkid.herokuapp.com/', { query: { id } })
+      const newSocket = io('http://localhost:3000', { query: { id } })
       setSocket(newSocket)
       return () => newSocket.close()
     }
