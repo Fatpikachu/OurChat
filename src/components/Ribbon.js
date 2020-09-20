@@ -3,13 +3,13 @@ import { Button } from 'react-bootstrap'
 import AuthService from '../AuthService'
 import Sidebar from './Sidebar'
 import OpenConversation from './OpenConversation'
-import { useSocket } from '../contexts/SocketProvider';
+// import { useSocket } from '../contexts/SocketProvider';
 import { useHistory } from "react-router-dom";
 
 export default function Ribbon(props) {
   let history = useHistory()
-  const socket = useSocket()
-  console.log('the socket in ribbon: ', socket)
+  // const socket = useSocket()
+  // console.log('the socket in ribbon: ', socket)
   const handleLogout = () => {
     // AuthService.logout(socket.id);
     // socket.emit('logout')

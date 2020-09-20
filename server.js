@@ -10,34 +10,34 @@ const cors = require('cors')
 const indexRouter = require('./routes/index')
 const http = require('http')
 const server = http.createServer(app)
-const socketio = require('socket.io')
-const io = socketio(server)
+// const socketio = require('socket.io')
+// const io = socketio(server)
 
-io.on('connection', socket => {
-  console.log('new websocket connection!!...')
-  const id = socket.handshake.query.id
-  socket.join(id)
-  console.log('the socket inside server: ', socket)
-  socket.on('send-message', ({ recipients, text}) => {
-    recipients.forEach(recipient => {
-      const newRecipients = recipients.filter(r =>
-      r !== recipient)
-      newRecipients.push(id)
-      console.log('emiting:  ', {
-        recipients: newRecipients, sender: id, text
-      })
-      socket.broadcast.to(recipient).emit('receive-message', {
-        recipients: newRecipients, sender: id, text
-      })
-    })
-  })
+// io.on('connection', socket => {
+//   console.log('new websocket connection!!...')
+//   const id = socket.handshake.query.id
+//   socket.join(id)
+//   console.log('the socket inside server: ', socket)
+//   socket.on('send-message', ({ recipients, text}) => {
+//     recipients.forEach(recipient => {
+//       const newRecipients = recipients.filter(r =>
+//       r !== recipient)
+//       newRecipients.push(id)
+//       console.log('emiting:  ', {
+//         recipients: newRecipients, sender: id, text
+//       })
+//       socket.broadcast.to(recipient).emit('receive-message', {
+//         recipients: newRecipients, sender: id, text
+//       })
+//     })
+//   })
 
-  // socket.on('logout', () => {
-  //   console.log('we will disconnect from server now')
-  //   socket.disconnect();
-  //   console.log('the socket is now: ', socket)
-  // })
-})
+//   // socket.on('logout', () => {
+//   //   console.log('we will disconnect from server now')
+//   //   socket.disconnect();
+//   //   console.log('the socket is now: ', socket)
+//   // })
+// })
 
 // app.post('/logout', async(req, res) => {
 //   console.log('got into logout');

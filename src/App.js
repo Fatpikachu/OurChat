@@ -41,7 +41,7 @@ function App() {
 
   return (
     <>
-      <SocketProvider id={id}>
+      {/* <SocketProvider id={id}> */}
         <ContactsProvider>
           <ConversationsProvider id={id}>
             <div className="App">
@@ -54,7 +54,7 @@ function App() {
             </div>
           </ConversationsProvider>
         </ContactsProvider>
-      </SocketProvider>
+      {/* </SocketProvider> */}
     </>
   );
 }
