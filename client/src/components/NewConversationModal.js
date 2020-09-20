@@ -9,7 +9,6 @@ export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContacts()
   const { createConversation } = useConversations()
 
-  // console.log('the selected:  ', selected)
   function handleCheckbox(contactId) {
     setSelected(prev =>{
       if(prev.includes(contactId)) {

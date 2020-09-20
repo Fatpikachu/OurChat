@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 
-const port = process.env.PORT || 3000
+const port = 3000
 
 const AuthService = {
   domain: `http://localhost:${port}`,
