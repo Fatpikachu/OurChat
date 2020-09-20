@@ -17,9 +17,8 @@ io.on('connection', socket => {
   console.log('new websocket connection!!...')
   const id = socket.handshake.query.id
   socket.join(id)
-
+  console.log('the socket inside server: ', socket)
   socket.on('send-message', ({ recipients, text}) => {
-    console.log('socket: recipient:  ', recipients, 'the text:  ', text)
     recipients.forEach(recipient => {
       const newRecipients = recipients.filter(r =>
       r !== recipient)
@@ -32,7 +31,18 @@ io.on('connection', socket => {
       })
     })
   })
+
+  // socket.on('logout', () => {
+  //   console.log('we will disconnect from server now')
+  //   socket.disconnect();
+  //   console.log('the socket is now: ', socket)
+  // })
 })
+
+// app.post('/logout', async(req, res) => {
+//   console.log('got into logout');
+
+// })
 
 
 app.use(cors());
@@ -45,8 +55,6 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedT
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose!'))
-
-
 
 
 app.use('/', indexRouter)

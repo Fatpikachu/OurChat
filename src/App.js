@@ -30,6 +30,15 @@ function App() {
         : <Redirect to='/' />
     )} />
   );
+
+  const PublicRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+      AuthService.loggedIn() === true
+        ? <Redirect to='/home' />
+        : <Component {...props} />
+    )} />
+  );
+
   return (
     <>
       <SocketProvider id={id}>
@@ -37,8 +46,8 @@ function App() {
           <ConversationsProvider id={id}>
             <div className="App">
             <HashRouter>
-              <Route exact path='/' component={Login} />
-              <Route exact path='/register' component={Register} />
+              <PublicRoute exact path='/' component={Login} />
+              <PublicRoute exact path='/register' component={Register} />
               <ProtectedRoute exact path='/home' component={Home} />
               <Route exact path='/unauthorized' component={Unauthorized} />
             </HashRouter>

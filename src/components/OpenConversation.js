@@ -18,16 +18,11 @@ export default function OpenConversation() {
     setText('')
   }
 
-  // useEffect(() => {
-  //   if(lastMessageRef.current) {
-  //     lastMessageRef.current.scrollIntoView({ smooth: true})
-  //   }
-  // }, [lastMessageRef.current])
-
   return(
-    <div className="d-flex flex-column flex-grow-1">
-      <div className="flex-grow-1 overflow-auto">
-        <div className="d-flex flex-column align-items-start justify-content-end px-3">
+
+    <div className="open-convo d-flex flex-column flex-grow-1" style={{ height: '88vh'}}>
+      <div className="convo overflow-auto">
+        <div className="d-flex flex-column px-3">
           {selectedConversation.messages.map((message, index) => {
             const lastMessage = selectedConversation.messages.length - 1 === index
             return (

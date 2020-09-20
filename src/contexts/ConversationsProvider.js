@@ -14,6 +14,7 @@ export function ConversationsProvider({ id, children }) {
   const [selectedConversationIndex , setSelectedConversationIndex] = useState(0)
   const { contacts } = useContacts()
   const socket = useSocket()
+  console.log('the socket in conversatinprovider: ', socket)
   function createConversation(recipients) {
     setConversations(prev => {
       // recipients = recipients.map((recip) => {
@@ -58,7 +59,6 @@ export function ConversationsProvider({ id, children }) {
   function sendMessage(recipients, text) {
       socket.emit('send-message', {recipients, text})
       addMessageToConversation({recipients, text, sender: id})
-
   }
 
   const formattedConversations = conversations.map((conversation, index) => {

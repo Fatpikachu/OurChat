@@ -69,9 +69,15 @@ router.get('/contacts/:userID', async(req, res) => {
   } catch(err){
     res.status(400).send({message: err})
   }
-  
 })
 
+router.post('/logout', async(req, res) => {
+  const { socket } = req.body;
+  sockets.disconnectUser = function(user_id){
+    sockets.socket(users[user_id]).disconnect();
+  }
+  sockets.disconnectUser(socket);
+})
 
 
 module.exports = router

@@ -7,30 +7,19 @@ import OpenConversation from './OpenConversation'
 // import { ConversationsProvider } from '../contexts/ConversationsProvider'
 import { useConversations } from '../contexts/ConversationsProvider'
 // import useLocalStorage from '../hooks/useLocalStorage'
+import Ribbon from './Ribbon';
 
 export default function Home(props) {
-  const handleLogout = () => {
-    AuthService.logout();
-    props.history.replace('/');
-  }
   const { selectedConversation } = useConversations()
   console.log('selected conversation in home  ', selectedConversation)
   // selectedConversation = true;
   return (
     <>  
-      {/* <ContactsProvider>
-        <ConversationsProvider> */}
-          {/* <button className='float-right' onClick={handleLogout}> Logout! </button> */}
-          <Button className='position-absolute right-0' variant="secondary" size="sm" onClick={handleLogout}>
-            Logout
-          </Button>{' '}
-          <div className='d-flex' style={{ height: '100vh '}}>
-            <Sidebar />
-            { selectedConversation && <OpenConversation /> }
-          </div>
-        {/* </ConversationsProvider>
-      </ContactsProvider> */}
+      <div className='d-flex' style={{ height: '100vh '}}>
+        <Sidebar />
+        <Ribbon />
+        { selectedConversation && <OpenConversation /> }
+      </div>
     </>  
-  )
-  
+  ) 
 };

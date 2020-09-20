@@ -10,11 +10,11 @@
     border: 1px solid black
 }
 
-textarea:focus{
+textarea:focus {
     outline:none !important;
 }
 
-textarea{
+textarea {
     border: none;
     overflow: auto;
     outline: none;
@@ -26,13 +26,30 @@ textarea{
     resize: none;
 }
 
-.send-text:focus{
-    outline: none !important
+.send-text:focus {
+    outline: none !important;
 }
 
-/* input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-} */
+.logout {
+    display: inline-block;
+}
+
+.ribbon {
+    position: absolute;
+    width: 60vw;
+    right: 0;
+    align-items: middle;
+}
+
+.open-convo {
+    border-top: 2px solid lightgray;
+    align-self: flex-end;
+}
+
+.convo{
+    margin-top: auto;
+}
+
+.logout{
+    margin-right: 10px;
+}
