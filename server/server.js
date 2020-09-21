@@ -16,6 +16,9 @@ const bodyParser = require('body-parser')
 
 
 app.use(cors());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 io.on('connection', socket => {
   console.log('new websocket connection!!...')
@@ -49,13 +52,12 @@ app.post('/logout', async(req, res) => {
 })
 
 
-
-
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose!'))
 
 
+app.use('/', indexRouter)
 
 server.listen(process.env.PORT || 3000)
