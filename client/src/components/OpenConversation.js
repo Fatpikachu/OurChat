@@ -3,10 +3,12 @@ import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useConversations } from '../contexts/ConversationsProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment'
 
 export default function OpenConversation() {
   const [text, setText] = useState('')
   const { sendMessage, selectedConversation } = useConversations()
+  console.log('the selectedConversation:::::::  ', selectedConversation)
   const setRef = useCallback( node => {
     if(node) {
       node.scrollIntoView({ smooth: true})
@@ -14,7 +16,9 @@ export default function OpenConversation() {
   })
   function handleSubmit(e) {
     e.preventDefault()
-    sendMessage(selectedConversation.recipients.map(r => r.id), text)
+    const time = moment().format('MM-DD-YYYY HH:mm')
+    console.log('the time ', typeof time, time)
+    sendMessage(selectedConversation.recipients.map(r => r.id), text, time)
     setText('')
   }
 
@@ -35,7 +39,7 @@ export default function OpenConversation() {
                     {message.text}
                 </div>
                 <div className={`text-muted medium ${message.fromMe ? 'text-right' : ''}`}>
-                  {message.fromMe ? 'You' : message.senderName}
+                <span className={`text-muted small`}>{message.time}</span> {message.fromMe ? 'You' : message.senderName}
                 </div>
               </div>
             )

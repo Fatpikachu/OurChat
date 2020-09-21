@@ -17,20 +17,14 @@ export function ConversationsProvider({ id, children }) {
   console.log('the socket in conversatinprovider: ', socket)
   function createConversation(recipients) {
     setConversations(prev => {
-      // recipients = recipients.map((recip) => {
-      //   return contacts.find(contact => {
-      //     return contact.id === recip
-      //   })
-      // })
-      // return [...prev, { recipients, messages: [] }]
       return [...prev, {recipients, messages: [] }]
     })
   }
 
-  const addMessageToConversation = useCallback(({ recipients, text, sender}) => {
+  const addMessageToConversation = useCallback(({ recipients, text, sender, time}) => {
     setConversations( prevConv => {
       let madeChange = false
-      const newMessage = { sender, text }
+      const newMessage = { sender, text, time }
       const newConversations = prevConv.map( conversation => {
         if(arrayEquality(conversation.recipients, recipients)){
           madeChange = true
@@ -56,9 +50,9 @@ export function ConversationsProvider({ id, children }) {
     return () => socket.off('receive-message')
   }, [socket, addMessageToConversation])
 
-  function sendMessage(recipients, text) {
-      socket.emit('send-message', {recipients, text})
-      addMessageToConversation({recipients, text, sender: id})
+  function sendMessage(recipients, text, time) {
+      socket.emit('send-message', {recipients, text, time})
+      addMessageToConversation({recipients, text, sender: id, time})
   }
 
   const formattedConversations = conversations.map((conversation, index) => {
