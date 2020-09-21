@@ -12,9 +12,10 @@ const http = require('http')
 const server = http.createServer(app)
 const socketio = require('socket.io')
 const io = socketio(server)
+const bodyParser = require('body-parser')
+
 
 app.use(cors());
-app.use('/', indexRouter)
 
 io.on('connection', socket => {
   console.log('new websocket connection!!...')
@@ -46,6 +47,8 @@ app.post('/logout', async(req, res) => {
   console.log('got into logout');
 
 })
+
+
 
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true })

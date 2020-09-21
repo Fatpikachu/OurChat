@@ -1,9 +1,11 @@
 import decode from 'jwt-decode';
 
 const port = 3000
+const endpoint = 'https://mechat-fatkid.herokuapp.com'
 
 const AuthService = {
-  domain: `http://localhost:${port}`,
+  // domain: `http://localhost:${port}`,
+  domain: endpoint,
   login: (screenName, password) => {
     // Get a token from api server using the fetch api
     return AuthService.fetch('/login', {
