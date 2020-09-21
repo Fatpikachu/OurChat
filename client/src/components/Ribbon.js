@@ -5,6 +5,7 @@ import Sidebar from './Sidebar'
 import OpenConversation from './OpenConversation'
 // import { useSocket } from '../contexts/SocketProvider';
 import { useHistory } from "react-router-dom";
+import logo from '../mechatlogo.png';
 
 export default function Ribbon(props) {
   let history = useHistory()
@@ -21,13 +22,13 @@ export default function Ribbon(props) {
     // console.log('the socket now is  ', socket)
   }
   return ( 
+    <>
       <div className='ribbon'>
-        <div>
-          Ribbon Text
-        </div>
+        <div className='mechat-ribbon'><img className='logo' src={logo} />MeChat</div>
           <Button className='logout float-right' variant="secondary" size="sm" onClick={handleLogout}>
             Logout
           </Button>{' '}
-      </div> 
+      </div>
+    </> 
   ) 
 };

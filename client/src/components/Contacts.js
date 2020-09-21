@@ -5,6 +5,9 @@ import { useContacts } from '../contexts/ContactsProvider'
 export default function Contacts() {
   const { contacts } = useContacts()
   console.log('contacts~~~~   ', contacts)
+  if(contacts == null){
+    window.location.reload();
+  }
   return (
     <ListGroup variant="flush">
       {contacts ? contacts.map( contact => (

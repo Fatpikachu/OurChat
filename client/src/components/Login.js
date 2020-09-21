@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AuthService from '../AuthService';
 import decode from 'jwt-decode';
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage from '../hooks/useLocalStorage';
+import logo from '../mechatlogo.png';
+import $ from 'jquery';
+
 
 
 const Login = props => {
@@ -23,6 +26,9 @@ const Login = props => {
   const[contacts, setContacts] = useLocalStorage('contacts')
   const[chatID, setChatID] = useLocalStorage('chatID')
   const[id, setId] = useLocalStorage('id')
+
+  const nameRef = React.createRef();
+  const pwRef = React.createRef();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -51,24 +57,45 @@ const Login = props => {
   }
 
   return (
-    <div>     
-        <h1>Login</h1>
-        <div>
-          <label htmlFor="screenName">Username</label>
-          <input onChange={handleChange} type="text" id="screenName" name="screenName" required />
+    <>
+    <div className='login-wrap'>
+      <div className='login-container'> 
+        <div className='mechat-header'><img className='logo' src={logo} />MeChat</div>
+        <div className='header'>
+          <h3>Login</h3>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input onChange={handleChange} type="password" id="password" name="password" required />
+        <form className='form' id='form'>
+          <div className="formcontrol">
+            <label htmlFor="name">Username</label>
+            <input type="text" 
+                    id="screenName" 
+                    name="screenName" 
+                    onChange={handleChange} 
+                    placeholder="Username"
+                    ref={nameRef}
+                    required />
+          </div>
+          <div className="formcontrol">
+            <label htmlFor="name">Password</label>
+            <input type="password" 
+                    id="password" 
+                    name="password" 
+                    onChange={handleChange} 
+                    placeholder="Password"
+                    ref={pwRef}
+                    required />
+          </div>
+        </form>
+            {
+              state.error
+              ? <div className='err-msg'>Invalid credentials you dum dum</div>
+              : null
+            }
+            <button className='login-btn' type="submit" onClick={handleLogin}>Login</button>
+            <p className='go-register'><NavLink to='/register'> Register </NavLink></p>
         </div>
-        <button type="submit" onClick={handleLogin}>Login</button>
-        <p><NavLink to='/register'> Register </NavLink></p> 
-        {
-        state.error
-        ? <div>Email/password invalid</div>
-        : <div></div>
-        }  
-    </div>
+      </div>
+    </>
   )
 };
 

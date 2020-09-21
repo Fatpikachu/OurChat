@@ -19,7 +19,6 @@ export default function OpenConversation() {
   }
 
   return(
-
     <div className="open-convo d-flex flex-column flex-grow-1" style={{ height: '88vh'}}>
       <div className="convo overflow-auto">
         <div className="d-flex flex-column px-3">
@@ -35,7 +34,7 @@ export default function OpenConversation() {
                   ${message.fromMe ? 'bg-primary text-white' : 'border'}`}>
                     {message.text}
                 </div>
-                <div className={`text-muted small ${message.fromMe ? 'text-right' : ''}`}>
+                <div className={`text-muted medium ${message.fromMe ? 'text-right' : ''}`}>
                   {message.fromMe ? 'You' : message.senderName}
                 </div>
               </div>
