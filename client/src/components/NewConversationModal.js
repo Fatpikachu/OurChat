@@ -23,7 +23,6 @@ export default function NewConversationModal({ closeModal }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log('the selcted:    ', selected)
     createConversation(selected)
     closeModal()
   }

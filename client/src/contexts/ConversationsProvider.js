@@ -14,7 +14,6 @@ export function ConversationsProvider({ id, children }) {
   const [selectedConversationIndex , setSelectedConversationIndex] = useState(0)
   const { contacts } = useContacts()
   const socket = useSocket()
-  console.log('the socket in conversatinprovider: ', socket)
   function createConversation(recipients) {
     setConversations(prev => {
       return [...prev, {recipients, messages: [] }]
@@ -64,8 +63,6 @@ export function ConversationsProvider({ id, children }) {
       const name = (contact && contact.name) || recipient
       return { id: recipient, name }
     })
-
-    // console.log('the recipients~~~ ', recipients)
 
     const messages = conversation.messages.map(message => {
       const contact = contacts.find(contact => {

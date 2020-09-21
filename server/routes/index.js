@@ -36,12 +36,13 @@ router.post('/register', async(req, res) => {
     email: req.body.email,
     password: hashedPassword
   })
-  user.contacts.push({id: '5f5de45102b6a103f6457006', name:'MeChat Support(Jef)'});
+  user.contacts.push({id: '5f5de45102b6a103f6457006', name:'MeChat Support - Jef'});
   try {
     const savedUser = await user.save()
     res.json(savedUser)
   } catch (err) {
     console.log(err)
+    
     res.status(400).send({message: err})
   }
 })

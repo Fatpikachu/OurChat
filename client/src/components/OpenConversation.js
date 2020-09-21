@@ -8,7 +8,6 @@ import moment from 'moment'
 export default function OpenConversation() {
   const [text, setText] = useState('')
   const { sendMessage, selectedConversation } = useConversations()
-  console.log('the selectedConversation:::::::  ', selectedConversation)
   const setRef = useCallback( node => {
     if(node) {
       node.scrollIntoView({ smooth: true})
@@ -17,7 +16,6 @@ export default function OpenConversation() {
   function handleSubmit(e) {
     e.preventDefault()
     const time = moment().format('MM-DD-YYYY HH:mm')
-    console.log('the time ', typeof time, time)
     sendMessage(selectedConversation.recipients.map(r => r.id), text, time)
     setText('')
   }

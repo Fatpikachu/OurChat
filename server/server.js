@@ -24,7 +24,6 @@ io.on('connection', socket => {
   console.log('new websocket connection!!...')
   const id = socket.handshake.query.id
   socket.join(id)
-  console.log('the socket inside server: ', socket)
   socket.on('send-message', ({ recipients, text, time}) => {
     recipients.forEach(recipient => {
       const newRecipients = recipients.filter(r =>
@@ -40,9 +39,9 @@ io.on('connection', socket => {
   })
 
   socket.on('logout', () => {
-    console.log('we will disconnect from server now')
+    // console.log('we will disconnect from server now')
     socket.disconnect();
-    console.log('the socket is now: ', socket)
+    // console.log('the socket is now: ', socket)
   })
 })
 

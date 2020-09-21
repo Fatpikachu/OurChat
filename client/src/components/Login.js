@@ -36,7 +36,6 @@ const Login = props => {
       .then((token) => {
         let decoded = decode(token);
         // let contacts = JSON.stringify(decoded.contacts)
-        console.log('contacts >>>: ', contacts)
         setScreenName(decoded.screenName);
         setContacts(decoded.contacts);
         setChatID(decoded.chatID);
